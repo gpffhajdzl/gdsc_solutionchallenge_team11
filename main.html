@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Centered Rectangle with Logo, Search Bar, and Buttons</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .rectangle {
+        position: relative;
+        width: 300px; /* 가로 길이 */
+        height: auto; /* 세로 길이 자동 조정 */
+        border: 1px solid black;
+        margin-bottom: 20px; /* 로고 아래에 공간을 만들기 위해 마진 추가 */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: 20px; /* 로고 위에 공간을 추가 */
+    }
+
+    .logo {
+        background-image: url('tayo_logo.png'); /* 로고 이미지 경로 설정 */
+        background-size: 50%; /* 로고 이미지 크기를 50%로 조정 */
+        background-position: top center; /* 로고 이미지를 div의 위쪽 중앙에 배치 */
+        background-repeat: no-repeat; /* 로고 이미지 반복 설정 */
+        width: 100%;
+        height: 150px; /* 로고 이미지 높이 조절 */
+    }
+
+    .search-container {
+        margin-top: 20px; /* 검색창과 로고 사이에 공간 추가 */
+    }
+
+    .search-input {
+        width: 200px;
+        height: 30px;
+        padding: 5px;
+        margin-right: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .search-button {
+        padding: 6px 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .map-container {
+        width: 100%;
+        height: 300px; /* 지도의 높이 조절 */
+        margin-top: 20px; /* 지도와 검색창 사이에 공간 추가 */
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: auto; /* 버튼 컨테이너가 가장 아래로 이동하도록 설정 */
+        padding: 10px 0; /* 버튼 컨테이너 내부 패딩 추가 */
+    }
+
+    .button {
+        /* Remove default button styles */
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .button img {
+        width: 70px; /* 버튼 이미지 너비 조정 */
+        height: 70px; /* 버튼 이미지 높이 조정 */
+    }
+
+    .button-text {
+        margin-top: 5px; /* 텍스트와 이미지 사이 간격 조정 */
+        font-size: 14px;
+    }
+</style>
+</head>
+<body>
+
+<div class="rectangle">
+    <div class="logo"></div>
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="검색어를 입력하세요">
+        <button class="search-button">검색</button>
+    </div>
+    <div class="map-container">
+        <!-- Google 지도 iframe -->
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.188547354983!2d-77.03654038472206!3d38.89723516207335!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7b7bcdecbb1df%3A0x715969d3136a9db1!2sWhite%20House!5e0!3m2!1sen!2sus!4v1638375425752!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+    <div class="button-container">
+        <div class="button">
+            <img src="bus_image.jpg" alt="Bus">
+            <div class="button-text">BUS</div>
+        </div>
+        <div class="button">
+            <img src="subway_image.jpg" alt="Subway">
+            <div class="button-text">SUBWAY</div>
+        </div>
+        <div class="button">
+            <img src="taxi_image.jpg" alt="Taxi">
+            <div class="button-text">TAXI</div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
