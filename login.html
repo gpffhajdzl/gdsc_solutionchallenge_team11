@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login start</title>
+    <style>
+        /* 로그인 화면 CSS */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .login-container {
+            max-width: 300px;
+            margin: 100px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* 로그인 후 화면 CSS */
+        .rectangle {
+            position: relative;
+            width: 300px;
+            height: auto;
+            border: 1px solid black;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-top: 20px;
+        }
+
+        .logo {
+            width: 100%;
+            height: 150px;
+            background-image: url('tayo_logo.png');
+            background-size: 50%;
+            background-position: top center;
+            background-repeat: no-repeat;
+        }
+
+        .search-container {
+            margin-top: 20px;
+        }
+
+        .search-input {
+            width: 200px;
+            height: 30px;
+            padding: 5px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .search-button {
+            padding: 6px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 300px;
+            margin-top: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: auto;
+            padding: 10px 0;
+        }
+
+        .button {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .button img {
+            width: 70px;
+            height: 70px;
+        }
+
+        .button-text {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <form>
+            <h1>회원가입</h1>
+            <div class="form-group">
+                <label for="signUpEmail">email :</label>
+                <input id="signUpEmail" type="email" />
+            </div>
+            <div class="form-group">
+                <label for="signUpPassword">password :</label>
+                <input id="signUpPassword" type="password" />
+            </div>
+            <button id="signUpButton" type="submit">회원가입 하기</button>
+        </form>
+    </div>
+
+    <div class="login-container">
+        <form>
+            <h1>로그인</h1>
+            <div class="form-group">
+                <label for="signInEmail">email :</label>
+                <input id="signInEmail" type="email" />
+            </div>
+            <div class="form-group">
+                <label for="signInPassword">password :</label>
+                <input id="signInPassword" type="password" />
+            </div>
+            <button id="signInButton" type="submit">로그인 하기</button>
+        </form>
+    </div>
+
+    <!-- 로그인 후 보여질 화면 -->
+    <div class="rectangle" style="display:none;">
+        <div class="logo"></div>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="검색어를 입력하세요">
+            <button class="search-button">검색</button>
+        </div>
+        <div class="map-container" id="map">
+            <!-- Google 지도가 여기에 표시됩니다 -->
+        </div>
+        <div class="button-container">
+            <div class="button">
+                <img src="bus_image.jpg" alt="Bus">
+                <div class="button-text">BUS</div>
+            </div>
+            <div class="button">
+                <img src="subway_image.jpg" alt="Subway">
+                <div class="button-text">SUBWAY</div>
+            </div>
+            <div class="button">
+                <img src="taxi_image.jpg" alt="Taxi">
+                <div class="button-text">TAXI</div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDjoWxaBeH7MWK2EKz-zAMTGsVIMUUKfqg",
+            authDomain: "tayo-a7c06.firebaseapp.com",
+            projectId: "tayo-a7c06",
+            storageBucket: "tayo-a7c06.appspot.com",
+            messagingSenderId: "778783618899",
+            appId: "1:778783618899:web:02921a0dcd9e5b571293a6",
+            measurementId: "G-4Y8FJCKKB0"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+
+        document.getElementById('signUpButton').addEventListener('click', (event) => {
+            event.preventDefault();
+            const email = document.getElementById('signUpEmail').value;
+            const password = document.getElementById('signUpPassword').value;
+
+            createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                console.log(userCredential);
+                // Signed in 
+                const user = userCredential.user;
+                // ...
+            })
+            .catch((error) => {
+                console.log(error);
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // ..
+            });
+        });
+
+        document.getElementById('signInButton').addEventListener('click', (event) => {
+            event.preventDefault();
+            const email = document.getElementById('signInEmail').value;
+            const password = document.getElementById('signInPassword').value;
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    console.log(userCredential);
+                    onSignIn(); // 로그인 성공 시 onSignIn 함수 호출
+                })
+                .catch((error) => {
+                    console.error('로그인 실패', error);
+                });
+            onSignIn(); // 로그인 성공 시 onSignIn 함수 호출
+        });
+
+        function onSignIn() {
+            // 로그인 후 화면 표시
+            document.querySelector('.rectangle').style.display = 'flex';
+            // Google Maps 로드
+            loadGoogleMaps();
+        }
+
+        function loadGoogleMaps() {
+            var script = document.createElement('script');
+            script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC2b-tpzXVQo_GxP3YkrNhGNAT3Tob9T-0&callback=initMap';
+            script.async = true;
+            script.defer = true;
+            window.initMap = initMap;
+            document.head.appendChild(script);
+        }
+
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: -34.397, lng: 150.644},
+                zoom: 6
+            });
+        }
+    </script>
+</body>
+</html>
